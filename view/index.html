@@ -80,6 +80,13 @@
 		var socket = io();
 	</script>
 
+    <script type="text/javascript">
+        function scrollWindow()
+        {
+            let h = document.querySelector('.content');
+            h.scrollTo(0,h.scrollHeight);
+        }
+    </script>
 	
 
 </head>
@@ -88,10 +95,7 @@
 <body>
     <div id="container">
         <div id="status-box">Server: <span id="status">-</span> / <span id="online">0</span> online.</div>
-        <div id="content">
-            
-
-        </div>
+        <div id="content"></div>
         <div id="send-box">
             <form id="send-form">
                 <!--<input type="text" name="name" id="name" placeholder="暱稱">-->
@@ -125,11 +129,14 @@
             socket.on("msg", function (d){
             	var msgBox = document.createElement("div");
             		msgBox.className = "msg";
+                
 
             	var msg = document.createTextNode(d.msg);
 
             	msgBox.appendChild(msg);
             	content.appendChild(msgBox);
+                document.getElementById("msg").value = "";
+                scrollWindow();
             });
 
             sendForm.addEventListener("submit",function(e){
