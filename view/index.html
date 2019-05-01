@@ -75,20 +75,20 @@
         function add()
         {
             var div = document.getElementById("content");
-            div.scollTop = div.scollHeight;
+            div[0].scollTop = div[0].scollHeight;
         }
     </script>
     
-    <script>
+    <!-- <script>
         function scrollWindow()
         {
             var t = document.getElementById("content");
             t.scrollTop = t.scrollHeight;
-            setTimeout('scrollWindow()',200);
+            setTimeout('scrollWindow()',1000);
         }
 
-        window.onload = function() {scrollWindow();}
-    </script>
+        //window.onload = function() {scrollWindow();}
+    </script> -->
 </head>
 
 
@@ -103,7 +103,7 @@
             <form id="send-form">
                 <!--<input type="text" name="name" id="name" placeholder="暱稱">-->
                 <input type="text" name="msg" id="msg" placeholder="說點什麼？">
-                <input type="submit" value="送出" onclick="add()">
+                <input type="submit" value="送出" >
             </form>
         </div>
     </div>
@@ -130,6 +130,9 @@
                 var msg = document.createTextNode(d.msg);
                 msgBox.appendChild(msg);
                 content.appendChild(msgBox);
+                
+                content.scrollTop = content.scrollHeight;
+                
             });
 
             sendForm.addEventListener("submit", function (e) {
@@ -160,6 +163,7 @@
     
                 if (ok) socket.emit("send", formData);
                 document.getElementById("msg").value = "";
+                
             });
         });
     </script>
