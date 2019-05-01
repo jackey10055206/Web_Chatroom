@@ -8,7 +8,6 @@ let onlinecount = 0;
 
 app.get('/', (req, res) => {
     res.sendFile(__dirname + '/view/index.html');
-    //res.sendFile(__dirname + '/view/online_user.html');
 });
 
 io.on('connection', (socket) => {
@@ -20,6 +19,7 @@ io.on('connection', (socket) => {
 	});
 
 	socket.on("send",(msg) => {
+		//if(Object.keys(msg).length < 2) return;
 		io.emit("msg",msg);
 	});
 

@@ -37,6 +37,9 @@
         display: inline-block;
     }
 
+    #send-box input.error {
+        border: 1px solid red;
+    }
     input[name="name"] {
         width: 15%;
     }
@@ -139,23 +142,33 @@
                 scrollWindow();
             });
 
-            sendForm.addEventListener("submit",function(e){
-            	e.preventDefault();
-
-       			var formData = {};
-        		var formChild = sendForm.children;
-
-        		for (var i=0; i< sendForm.childElementCount; i++) 
-        		{
-            		var child = formChild[i];
-            		if (child.name !== "") 
-            		{
-                		formData[child.name] = child.value;
-            		}
-        		}
-        
-        		socket.emit("send", formData);
-
+            sendForm.addEventListener("submit", function (e) {
+            e.preventDefault();
+ 
+            var ok = true;
+            var formData = {};
+            var formChild = sendForm.children;
+ 
+            for (var i=0; i< sendForm.childElementCount; i++) {
+                var child = formChild[i];
+                if (child.name !== "") 
+                {
+                    var val = child.value;
+                        if (val === "" || !val)
+                        { 
+                            ok = false;
+                            child.classList.add("error");
+                        }
+                        else
+                        {
+                            child.classList.remove("error");
+                            formData[child.name] = val;
+                        }
+                }
+            }
+ 
+    
+                if (ok) socket.emit("send", formData);
             });
         });
     </script>
