@@ -64,7 +64,7 @@
 
 <head>
     
-    <!--<meta http-equiv="refresh" content="8">-->
+    
     <!-- < link rel="Shortcut Icon" type="image/x-icon" href="絕對位址/相對位址" /> -->
     <link rel="Shortcut Icon" type="image/x-icon" href="/Desktop/TLE.ico">
     <title>TLE chatroom</title>>
@@ -75,9 +75,7 @@
 
    
     
-    <script type="text/javascript">
-        moment().format("h:mm");
-    </script>
+    
 </head>
 
 
@@ -98,13 +96,41 @@
     </div>
 
     <script>
+//         function setCookie(cname, cvalue, exdays) {
+//             var d = new Date();
+//             d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
+//             var expires = "expires="+d.toUTCString();
+//             document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+//         }
+
+//         function getCookie(cname) {
+//             var name = cname + "=";
+//             var ca = document.cookie.split(';');
+//             for(var i = 0; i < ca.length; i++) {
+//             var c = ca[i];
+//             while (c.charAt(0) == ' ') {
+//                 c = c.substring(1);
+//             }
+            
+//             if (c.indexOf(name) == 0) {
+//                 return c.substring(name.length, c.length);
+//             }
+//         }
+//         return "";
+// }
+
         document.addEventListener("DOMContentLoaded", () => {
             var status = document.getElementById("status");
             var online = document.getElementById("online");
             var sendForm = document.getElementById("send-form");
             var content = document.getElementById("content");
-            // const moment = require('moment');
-            // const currentTime = moment.format('HH:mm');
+            
+            var nameInputBox = document.getElementById("name");
+            var name = getCookie("name");
+
+            if (name) {
+                nameInputBox.value = name;
+            }
             socket.on("connect", function () {
                 status.innerText = "Connected.";
             });
@@ -136,6 +162,7 @@
             });
 
             sendForm.addEventListener("submit", function (e) {
+            
             e.preventDefault();
  
             var ok = true;
@@ -161,11 +188,36 @@
             }
  
     
-                if (ok) socket.emit("send", formData);
+                if (ok) {
+                    socket.emit("send", formData);
+                    setCookie("name", nameInputBox.value);
+                }
                 document.getElementById("msg").value = "";
                 
             });
         });
+
+        function setCookie(cname, cvalue, exdays) {
+                var d = new Date();
+                d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
+                var expires = "expires="+d.toUTCString();
+                document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+            }
+
+            function getCookie(cname) {
+                var name = cname + "=";
+                var ca = document.cookie.split(';');
+                for(var i = 0; i < ca.length; i++) {
+                    var c = ca[i];
+                    while (c.charAt(0) == ' ') {
+                        c = c.substring(1);
+                    }
+                    if (c.indexOf(name) == 0) {
+                        return c.substring(name.length, c.length);
+                    }
+                }
+                return "";
+            }
     </script>
 </body>
 
