@@ -84,18 +84,12 @@
 
 <head>
     
-    
-    <!-- < link rel="Shortcut Icon" type="image/x-icon" href="絕對位址/相對位址" /> -->
-    <link rel="Shortcut Icon" type="image/x-icon" href="./Desktop/TLE.ico">
     <title>TLE chatroom</title>
     <script src="/socket.io/socket.io.js"></script> 
     <script>
         var socket = io();
     </script>
 
-   
-    
-    
 </head>
 
 
@@ -105,7 +99,9 @@
 
     <div id="container">
         <div id="status-box">Server: <span id="status">-</span> / <span id="online">0</span> online.</div>
-        <div id="content" style="overflow: scroll;  " ></div>
+        <div id="content" style="overflow: scroll;  " >
+            <div id= "chatbox" ></div>
+        </div>
         <div id="send-box">
             <form id="send-form">
                 <input type="text" name="name" id="name" placeholder="Username">
@@ -151,10 +147,8 @@
                 nameBox.append(name);
                 msgBox.append(nameBox);
                 msgBox.append(msg);
-                content.append('<div>' + msgBox + '</div>');
+                content.append(msgBox);
 
-
-                
                 content.scrollTop = content.scrollHeight;
                 
             });
