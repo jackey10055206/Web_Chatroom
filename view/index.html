@@ -1,4 +1,5 @@
 <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
 
 <!DOCTYPE html>
 
@@ -8,9 +9,8 @@
 
 <style>
     html, body {
-        background: -webkit-linear-gradient(330deg,#e66465, #9198e5);
-        background: linear-gradient(120deg,#e66465, #9198e5);
-        overflow: auto;
+        background: #f0f7ff;
+        overflow: hidden;
     }
     #container {
         z-index: 1;
@@ -138,6 +138,8 @@
             socket.on("msg", function (d){
                 var msgBox = document.createElement("div");
                     msgBox.className = "msg";
+                    msgBox.style= "color : red";
+
                 var nameBox = document.createElement("span");
                     nameBox.className = "name";
 
