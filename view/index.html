@@ -111,18 +111,22 @@
         </div>
     </div>
 
-    <script>
+    <script type="text/javascript">
+
+
+        
+
 
         document.addEventListener("DOMContentLoaded", () => {
             var status = document.getElementById("status");
             var online = document.getElementById("online");
             var sendForm = document.getElementById("send-form");
             var content = document.getElementById("content");
-            
+            var username = document.getElementById("nickname");
             var nameInputBox = document.getElementById("name");
             var name = getCookie("name");
 
-            if (name) {
+             if (name) {
                 nameInputBox.value = name;
             }
             socket.on("connect", function () {
@@ -135,6 +139,10 @@
                 online.innerText = amount;
             });
 
+            // socket.on("getname", function(nickname){
+            //     username = nickname;
+            // });
+           
             socket.on("msg", function (d){
                 var msgBox = document.createElement("div");
                     msgBox.className = "msg";
