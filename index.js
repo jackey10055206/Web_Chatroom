@@ -11,7 +11,7 @@ app.get('/', (req, res) => {
     res.sendFile(__dirname + '/view/index.html');
     //console.log(req.query.username);
     nickname = req.query.username;
-    console.log(nickname);
+    //console.log(nickname);
 });
 
 
@@ -20,7 +20,7 @@ io.on('connection', (socket) => {
 	
 	onlinecount++;
 	io.emit("online" , "Online Users :" + onlinecount);
-	
+	io.emit("nickname",nickname);
 
 	socket.on("greet", () => {
 		socket.emit("greet","Online Users: " + onlinecount);
@@ -37,6 +37,7 @@ io.on('connection', (socket) => {
 		io.emit("online","Online Users: " + onlinecount);
 	});
 });
+
 
 
 server.listen(3000, () => {

@@ -125,6 +125,8 @@
             var username = document.getElementById("nickname");
             var nameInputBox = document.getElementById("name");
             var name = getCookie("name");
+            var sb ='';
+            var getname = '';
 
              if (name) {
                 nameInputBox.value = name;
@@ -139,22 +141,25 @@
                 online.innerText = amount;
             });
 
-            // socket.on("getname", function(nickname){
-            //     username = nickname;
-            // });
+            socket.on("nickname",function(data){
+                getname = data;
+                console.log(data);
+            });
+
+            
            
             socket.on("msg", function (d){
                 var msgBox = document.createElement("div");
                     msgBox.className = "msg";
-                    msgBox.style= "color : red";
+                    //msgBox.style= "color : red";
 
                 var nameBox = document.createElement("span");
-                    nameBox.className = "name";
+                //     nameBox.className = "name";
 
-                var name = document.createTextNode(d.name);
+                // var name = document.createTextNode(d.name);
                 var msg = document.createTextNode(d.msg);
 
-                nameBox.append(name);
+                nameBox.append(getname);
                 msgBox.append(nameBox);
                 msgBox.append(msg);
                 content.append(msgBox);
