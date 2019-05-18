@@ -20,7 +20,7 @@ io.on('connection', (socket) => {
 	
 	onlinecount++;
 	io.emit("online" , "Online Users :" + onlinecount);
-	io.emit("nickname",nickname);
+	
 
 	socket.on("greet", () => {
 		socket.emit("greet","Online Users: " + onlinecount);
@@ -29,6 +29,7 @@ io.on('connection', (socket) => {
 	
 	socket.on("send",(msg) => {
 		//if(Object.keys(msg).length < 2) return;
+		io.emit("nickname",nickname);
 		io.emit("msg",msg);
 	});
 
