@@ -29,8 +29,8 @@ io.on('connection', (socket) => {
 	
 	socket.on("send",(msg) => {
 		//if(Object.keys(msg).length < 2) return;
-		io.emit("nickname",nickname);
 		io.emit("msg",msg);
+		console.log(msg);
 	});
 
 	socket.on('disconnect', () => {
